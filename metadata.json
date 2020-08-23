@@ -1,0 +1,8 @@
+{
+  "name": "Big Avatar",
+  "description": "Adds your user avatar and name to the menu panel.",
+  "uuid": "big-avatar@gustavoperedo.org",
+  "shell-version": [
+    "3.36"
+  ]
+}
