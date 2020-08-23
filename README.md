@@ -1,7 +1,7 @@
 # Big avatar Gnome Shell Extension
 An extension based on https://github.com/db0x/bigavatar-db0x.de, it adds your avatar icon and name to the menu panel.
 
-
+![]https://raw.githubusercontent.com/GustavoPeredo/Big-Avatar-Gnome-Shell-Extension/master/screenshot.png
 
 To do:
 
