@@ -5,5 +5,5 @@ An extension based on https://github.com/db0x/bigavatar-db0x.de, it adds your av
 
 To do:
 
-* Add different settings such as having an horizontal option and icon and font sizes.
+* Fix bug that doesn't remove the user avatar when disabling the extension.
 * Auto-close menu when gnome-control-center opens.
