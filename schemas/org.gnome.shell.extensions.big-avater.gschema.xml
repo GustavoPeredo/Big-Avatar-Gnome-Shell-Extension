@@ -1,9 +1,24 @@
 <schemalist gettext-domain="BigAvatar">
   <schema id="org.gnome.shell.extensions.big-avatar" path="/org/gnome/shell/extensions/big-avatar/">
-    <key name="compactmode" type="b">
+    <key name="horizontalmode" type="b">
       <default>false</default>
-      <summary>Compact mode</summary>
-      <description>Compact mode</description>
+      <summary>Horizontal mode</summary>
+      <description>Horizontal mode</description>
+    </key>
+    <key name="usedefaultvalues" type="b">
+      <default>true</default>
+      <summary>Set default font and picture sizes</summary>
+      <description>Set default font and picture sizes</description>
+    </key>
+    <key name="fontsize" type="i">
+      <default>18</default>
+      <summary>Font size</summary>
+      <description>Font size</description>
+    </key>
+    <key name="picturesize" type="i">
+      <default>144</default>
+      <summary>Picture size</summary>
+      <description>Picture size</description>
     </key>
   </schema>
 </schemalist>

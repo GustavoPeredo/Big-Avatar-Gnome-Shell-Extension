@@ -1,12 +1,12 @@
 {
   "name": "Big Avatar",
   "extension-id": "big-avatar",
-  "description": "Adds your user avatar and name to the menu panel.",
+  "description": "Adds your user avatar and name to the menu panel. Big thanks to: db0x and 'I like 'em curvy' extension developer",
   "uuid": "big-avatar@gustavoperedo.org",
   "shell-version": [
     "3.36"
   ],
   "url": "https://github.com/GustavoPeredo/Big-Avatar-Gnome-Shell-Extension",
   "settings-schema": "org.gnome.shell.extensions.big-avatar",
-  "version": 1
+  "version": 2
 }
