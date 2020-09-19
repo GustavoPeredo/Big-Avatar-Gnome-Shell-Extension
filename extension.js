@@ -87,6 +87,7 @@ function disable() {
     }
     //Destroys iconMenuItem (basically removes the option from the menu)
     iconMenuItem.destroy();
+    settings.run_dispose()
 }
 
 //Destroys everything and creates a new one
