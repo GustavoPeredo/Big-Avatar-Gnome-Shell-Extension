@@ -58,7 +58,7 @@ const BigAvatarSettings = new GObject.Class({
             halign: Gtk.Align.START
         });
         defaultLabel = new Gtk.Label({
-            label: 'Use dafault values:',
+            label: 'Use default values:',
             hexpand: true,
             halign: Gtk.Align.START
         });
