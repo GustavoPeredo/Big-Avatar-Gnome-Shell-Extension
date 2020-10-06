@@ -39,30 +39,6 @@ var iconMenuItem = null;
 let shell_Version = Config.PACKAGE_VERSION;
 let settings;
 
-//Defines UserIconMenuItem
-var UserIconMenuItem = new GObject.registerClass(
-    {
-        GTypeName: 'UserIconMenuItem'
-    },
-    class UserIconMenuItem extends PopupMenu.PopupBaseMenuItem {
-        _init() {
-            super._init();
-            var box = new St.BoxLayout({
-                x_align: Clutter.ActorAlign.CENTER,
-        		    y_expand: true,
-        		    vertical: true,
-            });
-            this.actor.add(box, {
-                expand: true
-            });
-        }
-        //When clicked, open gnome control center
-        activate() {
-            Util.spawnCommandLine("gnome-control-center user-accounts");
-        }
-    }
-);
-
 function init() {
 }
 
@@ -103,9 +79,17 @@ function resetPre() {
 }
 
 function updateExtensionAppearence() {
-    //Creates based on UserIconMenuItem
-    this.iconMenuItem = new UserIconMenuItem();
-
+    //Creates new PopupMenuItem
+    this.iconMenuItem = new PopupMenu.PopupMenuItem('');
+    //Adds a box where we are going to store picture and avatar
+    this.iconMenuItem.add_child(
+        new St.BoxLayout({
+            x_align: Clutter.ActorAlign.CENTER,
+            x_expand: true,
+          	y_expand: true,
+          	vertical: true,
+         })
+    );
     //Test if in horizontal mode and change vertical and alignment variables
 	  if (settings.get_boolean('horizontalmode')) {
 	      this.iconMenuItem.actor.get_last_child().set_vertical(!this.iconMenuItem.actor.get_last_child().get_vertical());
@@ -149,3 +133,5 @@ function updateExtensionAppearence() {
               this.iconMenuItem.actor.get_last_child().add_child(nameString);
     }));
 }
+
+
