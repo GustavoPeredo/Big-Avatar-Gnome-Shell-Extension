@@ -23,7 +23,7 @@ const Lang = imports.lang;
 const Util = imports.misc.util;
 const PopupMenu = imports.ui.popupMenu;
 const { AccountsService, Clutter, GLib, St } = imports.gi;
-const { Avatar } = imports.ui.userWidget;
+const { UserWidget } = imports.ui.userWidget;
 const Config = imports.misc.config;
 const GObject = imports.gi.GObject;
 
@@ -48,8 +48,6 @@ function enable() {
     settings = Convenience.getSettings();
     //Connects changing any of the values to the resetPre function
     settings.connect('changed::horizontalmode', resetPre);
-    settings.connect('changed::fontsize', resetPre);
-    settings.connect('changed::picturesize', resetPre);
     //Calls the updateExtensionAppearence function to draw the first icon
     updateExtensionAppearence();
 }
@@ -81,10 +79,10 @@ function resetPre() {
 function updateExtensionAppearence() {
     //Creates new PopupMenuItem
     this.iconMenuItem = new PopupMenu.PopupMenuItem('');
+    var orientation = Clutter.Orientation.VERTICAL;
     //Adds a box where we are going to store picture and avatar
     this.iconMenuItem.add_child(
         new St.BoxLayout({
-            x_align: Clutter.ActorAlign.CENTER,
             x_expand: true,
           	y_expand: true,
           	vertical: true,
@@ -92,8 +90,7 @@ function updateExtensionAppearence() {
     );
     //Test if in horizontal mode and change vertical and alignment variables
 	  if (settings.get_boolean('horizontalmode')) {
-	      this.iconMenuItem.actor.get_last_child().set_vertical(!this.iconMenuItem.actor.get_last_child().get_vertical());
-	      this.iconMenuItem.actor.get_last_child().x_align = Clutter.ActorAlign.START;
+	      orientation = Clutter.Orientation.HORIZONTAL;
     }
 
     //Adds item to menu
@@ -110,27 +107,19 @@ function updateExtensionAppearence() {
               var userManager = AccountsService.UserManager.get_default();
               var user = userManager.get_user(GLib.get_user_name());
               //Get user icon
-              var avatar = new Avatar(user, {
-              	iconSize: settings.get_int('picturesize'),
-              });
+              var avatar = new UserWidget(user, orientation); // = new Avatar(user, {
+              	//iconSize: settings.get_int('picturesize'),
+              //});
+
               //Get user name and center it vertically
-              var nameString = new St.Label ({
-              	text: "  " + GLib.get_real_name(),
-              	y_align: Clutter.ActorAlign.CENTER
-              });
-              avatar.update();
+              avatar._updateUser();
 
               //Remove all created menu itens
               this.iconMenuItem.actor.get_last_child().remove_all_children();
 
               //Add the avatar picture
-              this.iconMenuItem.actor.get_last_child().add_child(avatar.actor);
+              this.iconMenuItem.actor.get_last_child().add_child(avatar);
 
-              //Set font size
-              nameString.style = "font-size: " + settings.get_int('fontsize').toString() + "px; margin: 8px;";
-
-              //Add name
-              this.iconMenuItem.actor.get_last_child().add_child(nameString);
     }));
 }
 
