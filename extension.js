@@ -42,6 +42,10 @@ let settings;
 function init() {
 }
 
+function openUserAccount() {
+    Util.spawn(['/bin/bash', '-c', "gnome-control-center user-accounts"]);
+}
+
 //Run when enabled
 function enable() {
     //Get user preferences
@@ -79,6 +83,7 @@ function resetPre() {
 function updateExtensionAppearence() {
     //Creates new PopupMenuItem
     this.iconMenuItem = new PopupMenu.PopupMenuItem('');
+    this.iconMenuItem.connect('button-press-event', openUserAccount);
     var orientation = Clutter.Orientation.VERTICAL;
     //Adds a box where we are going to store picture and avatar
     this.iconMenuItem.add_child(
@@ -106,10 +111,7 @@ function updateExtensionAppearence() {
 	            //Get user avatar and name
               var userManager = AccountsService.UserManager.get_default();
               var user = userManager.get_user(GLib.get_user_name());
-              //Get user icon
-              var avatar = new UserWidget(user, orientation); // = new Avatar(user, {
-              	//iconSize: settings.get_int('picturesize'),
-              //});
+              var avatar = new UserWidget(user, orientation);
 
               //Get user name and center it vertically
               avatar._updateUser();
@@ -119,8 +121,6 @@ function updateExtensionAppearence() {
 
               //Add the avatar picture
               this.iconMenuItem.actor.get_last_child().add_child(avatar);
-
     }));
 }
-
 
