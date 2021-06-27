@@ -19,13 +19,10 @@
 /* exported init */
 // Import nescessary libs
 const Main = imports.ui.main;
-const Lang = imports.lang;
 const Util = imports.misc.util;
 const PopupMenu = imports.ui.popupMenu;
 const { AccountsService, Clutter, GLib, St } = imports.gi;
 const { UserWidget } = imports.ui.userWidget;
-const Config = imports.misc.config;
-const GObject = imports.gi.GObject;
 
 //Import extension preferences
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -36,7 +33,6 @@ const Convenience = Me.imports.convenience;
 var iconMenuItem = null;
 
 //Creates some global variables
-let shell_Version = Config.PACKAGE_VERSION;
 let settings;
 
 function init() {
@@ -102,25 +98,10 @@ function updateExtensionAppearence() {
     Main.panel.statusArea.aggregateMenu.menu.addMenuItem(this.iconMenuItem, 0);
     this.systemMenu = Main.panel.statusArea['aggregateMenu']._system;
 
-    //When the popup menu opens do this:
-    //Check if on compact mode
-    this._menuOpenStateChangedId = this.systemMenu.menu.connect('open-state-changed', Lang.bind(this,
-          function(menu, open) {
-              if (!open)
-                  return;
-	            //Get user avatar and name
-              var userManager = AccountsService.UserManager.get_default();
-              var user = userManager.get_user(GLib.get_user_name());
-              var avatar = new UserWidget(user, orientation);
-
-              //Get user name and center it vertically
-              avatar._updateUser();
-
-              //Remove all created menu itens
-              this.iconMenuItem.actor.get_last_child().remove_all_children();
-
-              //Add the avatar picture
-              this.iconMenuItem.actor.get_last_child().add_child(avatar);
-    }));
+    var userManager = AccountsService.UserManager.get_default();
+    var user = userManager.get_user(GLib.get_user_name());
+    var avatar = new UserWidget(user, orientation);
+    avatar._updateUser();
+    this.iconMenuItem.actor.get_last_child().add_child(avatar);
 }
 

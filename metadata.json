@@ -5,8 +5,8 @@
   "uuid": "big-avatar@gustavoperedo.org",
   "url": "https://github.com/GustavoPeredo/Big-Avatar-Gnome-Shell-Extension",
   "settings-schema": "org.gnome.shell.extensions.big-avatar",
-  "version": 9,
+  "version": 10,
   "shell-version": [
-	"40.0", "40.1"
+	"40"
   ]
 }
