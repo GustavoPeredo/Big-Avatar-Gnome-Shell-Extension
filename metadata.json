@@ -7,6 +7,6 @@
   "settings-schema": "org.gnome.shell.extensions.big-avatar",
   "version": 10,
   "shell-version": [
-    "40","41"
+    "40","41","42"
   ]
 }
