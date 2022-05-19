@@ -1,7 +1,7 @@
 <schemalist gettext-domain="BigAvatar">
   <schema id="org.gnome.shell.extensions.big-avatar" path="/org/gnome/shell/extensions/big-avatar/">
     <key name="horizontalmode" type="b">
-      <default>true</default>
+      <default>false</default>
       <summary>Horizontal mode</summary>
       <description>Horizontal mode</description>
     </key>
