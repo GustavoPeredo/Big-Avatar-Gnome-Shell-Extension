@@ -7,3 +7,11 @@ Now compatible with Gnome 40+.
 **[Install Big Avatar now!](https://extensions.gnome.org/extension/3488/big-avatar/)**
 
 ![screenshot](screenshot.png)
+
+## TODO List
+
+- [] Implement custom command
+
+- [] Implement custom sizes for user icon and name
+
+- [] Add boxes background to settings menu
