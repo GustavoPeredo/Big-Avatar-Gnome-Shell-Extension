@@ -10,8 +10,8 @@ Now compatible with Gnome 40+.
 
 ## TODO List
 
-- [] Implement custom command
+- [ ] Implement custom command
 
-- [] Implement custom sizes for user icon and name
+- [ ] Implement custom sizes for user icon and name
 
-- [] Add boxes background to settings menu
+- [ ] Add boxes background to settings menu
