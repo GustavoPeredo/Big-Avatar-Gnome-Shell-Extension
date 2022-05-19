@@ -1,11 +1,9 @@
 # Big avatar Gnome Shell Extension
-An extension based on https://github.com/db0x/bigavatar-db0x.de, it adds your avatar icon and name to the menu panel.
-It allows you to tweak the size of both font and avatar image.
 
-![tweaks image](https://raw.githubusercontent.com/GustavoPeredo/Big-Avatar-Gnome-Shell-Extension/master/tweaks.png)
-![screenshot](https://raw.githubusercontent.com/GustavoPeredo/Big-Avatar-Gnome-Shell-Extension/master/screenshot.png)
+A fork of [db0x's extension](https://github.com/db0x/bigavatar-db0x.de) that adds your user icon and name to your menu panel.
 
-To do:
+Now compatible with Gnome 40+.
 
-* ~~Fix bug that doesn't remove the user avatar when disabling the extension.~~
-* Auto-close menu when gnome-control-center opens.
+**[Install Big Avatar now!](https://extensions.gnome.org/extension/3488/big-avatar/)**
+
+![screenshot](screenshot.png)
