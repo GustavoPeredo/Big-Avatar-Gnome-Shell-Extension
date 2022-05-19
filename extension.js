@@ -17,7 +17,7 @@
  */
 
 /* exported init */
-// Import nescessary libs
+// Import necessary libs
 const Main = imports.ui.main;
 const Util = imports.misc.util;
 const PopupMenu = imports.ui.popupMenu;
@@ -29,79 +29,77 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
 
-//Creates temporary iconMenuItem variable
-var iconMenuItem = null;
+//Create the variable for the extension item shown in menu
+var bigAvatarItem = null;
 
-//Creates some global variables
+//Create a global variable to hold user settings
 let settings;
 
-function init() {
-}
+function init() {}
 
 function openUserAccount() {
     Util.spawn(['/bin/bash', '-c', "gnome-control-center user-accounts"]);
 }
 
-//Run when enabled
+//Run when extension is enabled
 function enable() {
     //Get user preferences
     settings = Convenience.getSettings();
-    //Connects changing any of the values to the resetPre function
-    settings.connect('changed::horizontalmode', resetPre);
-    //Calls the updateExtensionAppearence function to draw the first icon
-    updateExtensionAppearence();
+    //Connect the changing of any values to the UpdateExtension function
+    settings.connect('changed::horizontalmode', UpdateExtension);
+    //Call the drawExtension function to draw the bigAvatarItem the first time
+    drawExtension();
 }
 
-//Run when disabled
+//Run when extension is disabled
 function disable() {
-    //Disconnects systemMenu
+    //Disconnect systemMenu
     if (this._menuOpenStateChangedId) {
         this.systemMenu.menu.disconnect(this._menuOpenStateChangedId);
         this._menuOpenStateChangedId = 0;
     }
-    //Destroys iconMenuItem (basically removes the option from the menu)
-    iconMenuItem.destroy();
-    settings.run_dispose()
+    //Remove the bigAvatarItem
+    bigAvatarItem.destroy();
+    settings.run_dispose();
 }
 
-//Destroys everything and creates a new one
-function resetPre() {
-    //Disconnects systemMenu
+//Remove the bigAvatarItem and draw the updated one
+function UpdateExtension() {
+    //Disconnect systemMenu
     if (this._menuOpenStateChangedId) {
         this.systemMenu.menu.disconnect(this._menuOpenStateChangedId);
         this._menuOpenStateChangedId = 0;
     }
-    //Destroys iconMenuItem (basically removes the option from the menu)
-    iconMenuItem.destroy();
-    updateExtensionAppearence()
+    //Remove the bigAvatarItem
+    bigAvatarItem.destroy();
+    //Redraw the bigAvatarItem
+    drawExtension();
 }
 
-function updateExtensionAppearence() {
-    //Creates new PopupMenuItem
-    this.iconMenuItem = new PopupMenu.PopupMenuItem('');
-    this.iconMenuItem.connect('button-press-event', openUserAccount);
-    var orientation = Clutter.Orientation.VERTICAL;
-    //Adds a box where we are going to store picture and avatar
-    this.iconMenuItem.add_child(
+function drawExtension() {
+    //Create the new bigAvatarItem
+    this.bigAvatarItem = new PopupMenu.PopupMenuItem('');
+    //Connect the bigAvatarItem to opening the 'Users' page in settings
+    this.bigAvatarItem.connect('button-press-event', openUserAccount);
+    //Add a box where we are going to store picture and avatar
+    this.bigAvatarItem.add_child(
         new St.BoxLayout({
             x_expand: true,
-          	y_expand: true,
-          	vertical: true,
-         })
-    );
-    //Test if in horizontal mode and change vertical and alignment variables
-	  if (settings.get_boolean('horizontalmode')) {
-	      orientation = Clutter.Orientation.HORIZONTAL;
-    }
+            y_expand: true,
+            vertical: true,
+        }));
+    //Change orientation if in horizontal mode
+    var orientation = (Clutter.Orientation.VERTICAL);
+    if (settings.get_boolean('horizontalmode')) { orientation = Clutter.Orientation.HORIZONTAL; }
 
-    //Adds item to menu
-    Main.panel.statusArea.aggregateMenu.menu.addMenuItem(this.iconMenuItem, 0);
+    //Adds bigAvatarItem to the menu
+    Main.panel.statusArea.aggregateMenu.menu.addMenuItem(this.bigAvatarItem, 0);
     this.systemMenu = Main.panel.statusArea['aggregateMenu']._system;
-
+    //Get username
     var userManager = AccountsService.UserManager.get_default();
     var user = userManager.get_user(GLib.get_user_name());
+    //Draw the bigAvatarItem
     var avatar = new UserWidget(user, orientation);
     avatar._updateUser();
-    this.iconMenuItem.actor.get_last_child().add_child(avatar);
+    this.bigAvatarItem.actor.get_last_child().add_child(avatar);
 }
-
