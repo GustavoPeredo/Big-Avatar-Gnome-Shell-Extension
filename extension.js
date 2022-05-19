@@ -19,10 +19,10 @@
 /* exported init */
 // Import necessary libs
 const Main = imports.ui.main;
-const Util = imports.misc.util;
 const PopupMenu = imports.ui.popupMenu;
-const { AccountsService, Clutter, GLib, St } = imports.gi;
 const { UserWidget } = imports.ui.userWidget;
+const Util = imports.misc.util;
+const { AccountsService, Clutter, GLib, St } = imports.gi;
 
 //Import extension preferences
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -35,10 +35,12 @@ var bigAvatarItem = null;
 //Create a global variable to hold user settings
 let settings;
 
+//Launch the extension
 function init() {}
 
-function openUserAccount() {
-    Util.spawn(['/bin/bash', '-c', "gnome-control-center user-accounts"]);
+//Run the command when clicking on the bigAvatarItem
+function runCommand() {
+    Util.spawn(['/bin/bash', '-c', settings.get_string('command')]);
 }
 
 //Run when extension is enabled
@@ -47,6 +49,8 @@ function enable() {
     settings = Convenience.getSettings();
     //Connect the changing of any values to the UpdateExtension function
     settings.connect('changed::horizontalmode', UpdateExtension);
+    settings.connect('changed::defaultcommandmode', UpdateExtension);
+    settings.connect('changed::command', UpdateExtension);
     //Call the drawExtension function to draw the bigAvatarItem the first time
     drawExtension();
 }
@@ -80,7 +84,7 @@ function drawExtension() {
     //Create the new bigAvatarItem
     this.bigAvatarItem = new PopupMenu.PopupMenuItem('');
     //Connect the bigAvatarItem to opening the 'Users' page in settings
-    this.bigAvatarItem.connect('button-press-event', openUserAccount);
+    this.bigAvatarItem.connect('button-press-event', runCommand);
     //Add a box where we are going to store picture and avatar
     this.bigAvatarItem.add_child(
         new St.BoxLayout({
