@@ -28,32 +28,51 @@ Compatible with Gnome 40+.
 
 ## Installation from Source
 
-1. Download the zip and extract it or clone the repository
+1. Download the zip and extract it, or clone the repository
 
-2. From the project folder, run:
+2. Navigate to the root directory
+
+3. Get the UUID from `metadata.json`
 
     ```bash
-    make install
+    UUID=$(grep -E '^[ ]*"uuid":' ./metadata.json | \
+    sed 's@^[ ]*"uuid":[ ]*"\(.\+\)",[ ]*@\1@')
+
+    echo $UUID
     ```
 
-3. Reload `gnome-shell`
+4. Remove any previous version and install the extension
+
+    ```bash
+    rm -rfv $HOME/.local/share/gnome-shell/extensions/$UUID
+    mkdir -v $HOME/.local/share/gnome-shell/extensions/$UUID
+    cp -rv ./* $HOME/.local/share/gnome-shell/extensions/$UUID
+    ```
+
+5. Reload `gnome-shell`
    - Press **ALT+F2**, then enter **r** (not possible on Wayland)
    - or run `killall gnome-shell` (not possible on Wayland)
    - or log out, and re-login
 
-4. Enable the extension
+6. Enable the extension
 
 ## TODO List
 
-- [ ] Implement custom command
+- [ ] :rocket: **remove convenience.js and use getSettings() from ExtensionUtils
+instead of creating your own custom functions:
+<https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/misc/extensionUtils.js>**
 
-- [ ] Implement custom sizes for user icon and name
+- [ ] :sparkles: Implement **custom command**
 
-- [ ] Add boxes background to settings menu
+- [ ] :sparkles: Implement **custom sizes for user icon and name**
 
-- [x] Update `Makefile` to include correct build and reload commands
+- [ ] :lipstick: Add boxes background to settings menu
 
-- [x] Add an installation section to README.md
+- [x] :memo: Add an installation section to README.md
+
+- [x] :rocket: **Remove Makefile**
+
+- [x] :package: ~~Update `Makefile` to include correct build and reload commands~~
 
 ## Notes
 
