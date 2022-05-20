@@ -28,7 +28,7 @@ Compatible with Gnome 40+.
 
 ## Installation from Source
 
-1. Download the zip and extract it or clone the repository.
+1. Download the zip and extract it or clone the repository
 
 2. From the project folder, run:
 
@@ -38,9 +38,10 @@ Compatible with Gnome 40+.
 
 3. Reload `gnome-shell`
    - Press **ALT+F2**, then enter **r** (not possible on Wayland)
-   - or log out, and log back in.
+   - or run `killall gnome-shell` (not possible on Wayland)
+   - or log out, and re-login
 
-4. Enable the extension.
+4. Enable the extension
 
 ## TODO List
 

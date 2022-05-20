@@ -1,3 +1,5 @@
+"use strict";
+
 //Import required libraries
 const Gettext = imports.gettext;
 const Gio = imports.gi.Gio;
