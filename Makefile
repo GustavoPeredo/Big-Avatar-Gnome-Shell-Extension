@@ -10,12 +10,6 @@ endif
 INSTALLBASE = $(XDG_DATA_HOME)/gnome-shell/extensions
 
 install:
-	echo "~~~~~REMOVING PREVIOUS INSTALLATION~~~~~"
 	rm -rfv $(INSTALLBASE)/$(UUID)
-	echo "~~~~~INSTALLING EXTENSION~~~~~"
 	mkdir -v $(INSTALLBASE)/$(UUID)
 	cp -rv ./* $(INSTALLBASE)/$(UUID)
-
-enable:
-	echo "~~~~~EXTENSION ENABLED~~~~~"
-	gnome-extensions enable $(UUID)
