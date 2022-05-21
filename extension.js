@@ -40,7 +40,9 @@ function disable() {
     }
     //Remove the bigAvatarItem
     bigAvatarItem.destroy();
+    bigAvatarItem = null;
     settings.run_dispose();
+    settings = null;
 }
 
 //Create the variable for the extension item shown in menu
@@ -49,11 +51,11 @@ var bigAvatarItem = null;
 //Create the item and add it to the panel menu
 function drawExtension() {
     //Create the new bigAvatarItem
-    this.bigAvatarItem = new PopupMenu.PopupMenuItem('');
+    bigAvatarItem = new PopupMenu.PopupMenuItem('');
     //Connect the bigAvatarItem to opening the 'Users' page in settings
-    this.bigAvatarItem.connect('button-press-event', runCommand);
+    bigAvatarItem.connect('button-press-event', runCommand);
     //Add a box where we are going to store picture and avatar
-    this.bigAvatarItem.add_child(
+    bigAvatarItem.add_child(
         new St.BoxLayout({
             x_expand: true,
             y_expand: true,
@@ -64,7 +66,7 @@ function drawExtension() {
     if (settings.get_boolean('horizontalmode')) { orientation = Clutter.Orientation.HORIZONTAL; }
 
     //Adds bigAvatarItem to the menu
-    Main.panel.statusArea.aggregateMenu.menu.addMenuItem(this.bigAvatarItem, 0);
+    Main.panel.statusArea.aggregateMenu.menu.addMenuItem(bigAvatarItem, 0);
     this.systemMenu = Main.panel.statusArea['aggregateMenu']._system;
     //Get username
     var userManager = AccountsService.UserManager.get_default();
@@ -72,7 +74,7 @@ function drawExtension() {
     //Draw the bigAvatarItem
     var avatar = new UserWidget(user, orientation);
     avatar._updateUser();
-    this.bigAvatarItem.actor.get_last_child().add_child(avatar);
+    bigAvatarItem.actor.get_last_child().add_child(avatar);
 }
 
 //Run the command when clicking on the bigAvatarItem
