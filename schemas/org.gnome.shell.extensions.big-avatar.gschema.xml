@@ -12,7 +12,7 @@
             <description>Default Command Enabled</description>
         </key>
         <key name="command" type="s">
-            <default>"gnome-control-center user-accounts"</default>
+            <default>"gnome-extensions-app</default>
             <summary>Shell command defined by the user and used instead of the default command if enabled</summary>
             <description>Custom Command</description>
         </key>
