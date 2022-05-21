@@ -30,7 +30,7 @@ Compatible with Gnome 40+.
 
 1. Download the zip and extract it, or clone the repository
 
-2. Navigate to the root directory
+2. Navigate to the folder
 
 3. Get the UUID from `metadata.json`
 
@@ -58,19 +58,21 @@ Compatible with Gnome 40+.
 
 ## TODO List
 
-- [ ] :rocket: **remove convenience.js and use getSettings() from ExtensionUtils
-instead of creating your own custom functions:
-<https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/misc/extensionUtils.js>**
+- [ ] :bug: Fix Big Avatar not being immediately updated after changing settings
 
 - [ ] :sparkles: Implement **custom command**
 
 - [ ] :sparkles: Implement **custom sizes for user icon and name**
 
-- [ ] :lipstick: Add boxes background to settings menu
+- [x] :lipstick: Add boxes background to settings menu
 
 - [x] :memo: Add an installation section to README.md
 
 - [x] :rocket: **Remove Makefile**
+
+- [x] :rocket: **remove convenience.js and use getSettings() from ExtensionUtils
+instead of creating your own custom functions:
+<https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/misc/extensionUtils.js>**
 
 - [x] :package: ~~Update `Makefile` to include correct build and reload commands~~
 

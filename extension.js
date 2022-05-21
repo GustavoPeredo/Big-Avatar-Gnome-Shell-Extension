@@ -1,35 +1,28 @@
 "use strict";
 
 //Import required libraries
-const Main = imports.ui.main;
-const PopupMenu = imports.ui.popupMenu;
-const { UserWidget } = imports.ui.userWidget;
-const Util = imports.misc.util;
-const { AccountsService, Clutter, GLib, St } = imports.gi;
+const Main = imports.ui.main;//access to the panel menu
 
-//Import extension preferences
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Convenience = Me.imports.convenience;
+const PopupMenu = imports.ui.popupMenu;//object that the extension is in the panel menu
 
-//Create the variable for the extension item shown in menu
-var bigAvatarItem = null;
+const UserWidget = imports.ui.userWidget.UserWidget;//something to do with user name and icon
 
-//Create a global variable to hold user settings
-let settings;
+const Util = imports.misc.util;//access system to run shell comand
+
+const { AccountsService, Clutter, Gio, GLib, St } = imports.gi;//tools for layout and user data
+
+const ExtensionUtils = imports.misc.extensionUtils;//access to settings from schema
 
 //Launch the extension
 function init() {}
 
-//Run the command when clicking on the bigAvatarItem
-function runCommand() {
-    Util.spawn(['/bin/bash', '-c', settings.get_string('command')]);
-}
+//Create a global variable to hold user settings
+let settings;
 
 //Run when extension is enabled
 function enable() {
     //Get user preferences
-    settings = Convenience.getSettings();
+    settings = ExtensionUtils.getSettings();
     //Connect the changing of any values to the UpdateExtension function
     settings.connect('changed::horizontalmode', UpdateExtension);
     settings.connect('changed::defaultcommandmode', UpdateExtension);
@@ -50,19 +43,10 @@ function disable() {
     settings.run_dispose();
 }
 
-//Remove the bigAvatarItem and draw the updated one
-function UpdateExtension() {
-    //Disconnect systemMenu
-    if (this._menuOpenStateChangedId) {
-        this.systemMenu.menu.disconnect(this._menuOpenStateChangedId);
-        this._menuOpenStateChangedId = 0;
-    }
-    //Remove the bigAvatarItem
-    bigAvatarItem.destroy();
-    //Redraw the bigAvatarItem
-    drawExtension();
-}
+//Create the variable for the extension item shown in menu
+var bigAvatarItem = null;
 
+//Create the item and add it to the panel menu
 function drawExtension() {
     //Create the new bigAvatarItem
     this.bigAvatarItem = new PopupMenu.PopupMenuItem('');
@@ -89,4 +73,22 @@ function drawExtension() {
     var avatar = new UserWidget(user, orientation);
     avatar._updateUser();
     this.bigAvatarItem.actor.get_last_child().add_child(avatar);
+}
+
+//Run the command when clicking on the bigAvatarItem
+function runCommand() {
+    Util.spawn(['/bin/bash', '-c', settings.get_string('command')]);
+}
+
+//Remove the bigAvatarItem and draw the updated one
+function UpdateExtension() {
+    //Disconnect systemMenu
+    if (this._menuOpenStateChangedId) {
+        this.systemMenu.menu.disconnect(this._menuOpenStateChangedId);
+        this._menuOpenStateChangedId = 0;
+    }
+    //Remove the bigAvatarItem
+    bigAvatarItem.destroy();
+    //Redraw the bigAvatarItem
+    drawExtension();
 }
