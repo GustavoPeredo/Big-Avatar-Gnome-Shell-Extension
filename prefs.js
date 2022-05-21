@@ -3,15 +3,15 @@
 //Import required libraries
 const { Adw, Gdk, GdkPixbuf, Gio, GLib, GObject, Gtk } = imports.gi;
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Convenience = Me.imports.convenience;
+const ExtensionUtils = imports.misc.extensionUtils;//access to settings from schema
 
-function init() {}
+//Create a global variable to hold user settings
+let settings;
 
 function fillPreferencesWindow(window) {
-    //
-    const settings = Convenience.getSettings();
+
+    //Get user preferences
+    settings = ExtensionUtils.getSettings();
 
     // Create a preferences page and group
     const page = new Adw.PreferencesPage();
