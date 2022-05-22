@@ -79,3 +79,4 @@ instead of creating your own custom functions:
 ## Notes
 
 - This project is a fork of **[db0x's extension](https://github.com/db0x/bigavatar-db0x.de).**
+- Huge thanks for @djinnalexio for his amazing contribution! He single handedly revived this extension!
