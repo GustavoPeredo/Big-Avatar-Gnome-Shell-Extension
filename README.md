@@ -58,6 +58,8 @@ Compatible with Gnome 40+.
 
 ## TODO List
 
+- [ ] :mag: Perform SEO on README and [extensions website](https://extensions.gnome.org/extension/3488/big-avatar/)
+
 - [ ] :bug: Fix Big Avatar not being immediately updated after changing settings
 
 - [ ] :sparkles: Implement **custom command**
@@ -79,4 +81,5 @@ instead of creating your own custom functions:
 ## Notes
 
 - This project is a fork of **[db0x's extension](https://github.com/db0x/bigavatar-db0x.de).**
+
 - Huge thanks for @djinnalexio for his amazing contribution! He single handedly revived this extension!
