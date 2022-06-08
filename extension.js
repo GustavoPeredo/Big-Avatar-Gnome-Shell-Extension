@@ -25,7 +25,7 @@ function enable() {
     settings = ExtensionUtils.getSettings();
     //Connect the changing of any values to the UpdateExtension function
     settings.connect('changed::horizontalmode', UpdateExtension);
-    settings.connect('changed::defaultcommandmode', UpdateExtension);
+    //settings.connect('changed::defaultcommandmode', UpdateExtension);
     settings.connect('changed::command', UpdateExtension);
     //Call the drawExtension function to draw the bigAvatarItem the first time
     drawExtension();
@@ -34,9 +34,9 @@ function enable() {
 //Run when extension is disabled
 function disable() {
     //Disconnect systemMenu
-    if (this._menuOpenStateChangedId) {
-        this.systemMenu.menu.disconnect(this._menuOpenStateChangedId);
-        this._menuOpenStateChangedId = 0;
+    if (_menuOpenStateChangedId) {
+        systemMenu.menu.disconnect(_menuOpenStateChangedId);
+        _menuOpenStateChangedId = 0;
     }
     //Remove the bigAvatarItem
     bigAvatarItem.destroy();
@@ -85,9 +85,9 @@ function runCommand() {
 //Remove the bigAvatarItem and draw the updated one
 function UpdateExtension() {
     //Disconnect systemMenu
-    if (this._menuOpenStateChangedId) {
-        this.systemMenu.menu.disconnect(this._menuOpenStateChangedId);
-        this._menuOpenStateChangedId = 0;
+    if (_menuOpenStateChangedId) {
+        systemMenu.menu.disconnect(_menuOpenStateChangedId);
+        _menuOpenStateChangedId = 0;
     }
     //Remove the bigAvatarItem
     bigAvatarItem.destroy();
