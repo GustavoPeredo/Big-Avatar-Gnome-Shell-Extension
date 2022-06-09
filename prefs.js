@@ -3,76 +3,50 @@
 //Import required libraries
 const { Adw, Gdk, GdkPixbuf, Gio, GLib, GObject, Gtk } = imports.gi;
 
-const ExtensionUtils = imports.misc.extensionUtils;//access to settings from schema
+const ExtensionUtils = imports.misc.extensionUtils;//Access to settings from schema
 
 function init() {}
 
 function fillPreferencesWindow(window) {
-    // Use the same GSettings schema as in `extension.js`
     const settings = ExtensionUtils.getSettings();
 
-    // Create a preferences page and groups
+    //Create a preferences page and group
     const page = new Adw.PreferencesPage();
-    // Add our page to the window
     window.add(page);
+    const group = new Adw.PreferencesGroup();
+    page.add(group);
 
-    // HORIZONTAL MODE SETTINGS
-    const horizontalModeGroup = new Adw.PreferencesGroup();
-    page.add(horizontalModeGroup);
-
-    const horizontalModeRow = new Adw.ActionRow({ title: 'Horizontal Mode' });
-    horizontalModeGroup.add(horizontalModeRow);
-    // Create the switch and bind its value to the key
+    //Orientation Settings
+    const orientationRow = new Adw.ActionRow({ title: 'Horizontal mode' });
+    group.add(orientationRow);
+    //Create the switch
     const horizontalModeToggle = new Gtk.Switch({
         active: settings.get_boolean('horizontalmode'),
         valign: Gtk.Align.CENTER });
+    //Bind the switch and the key
     settings.bind( 'horizontalmode', horizontalModeToggle, 'state', Gio.SettingsBindFlags.DEFAULT );
-    // Add the switch to the row
-    horizontalModeRow.add_suffix(horizontalModeToggle);
-    horizontalModeRow.activatable_widget = horizontalModeToggle;
+    //Add the switch to the row
+    orientationRow.add_suffix(horizontalModeToggle);
+    orientationRow.activatable_widget = horizontalModeToggle;
 
-    // COMMAND SETTINGS
-    const commandGroup = new Adw.PreferencesGroup({ title: 'Launch Command Settings' });
-    page.add(commandGroup);
-
-    const defaultCommandRow = new Adw.ActionRow({ title: 'Default Command', subtitle: 'gnome-extensions-app' });
-    commandGroup.add(defaultCommandRow);
-    // Create the switch and bind its value to the key
-    const defaultCommandToggle = new Gtk.Switch({
-        active: settings.get_boolean('defaultcommandmode'),
-        valign: Gtk.Align.CENTER });
-    settings.bind( 'defaultcommandmode', defaultCommandToggle, 'active', Gio.SettingsBindFlags.DEFAULT );
-    // Add the switch to the row
-    defaultCommandRow.add_suffix(defaultCommandToggle);
-    defaultCommandRow.activatable_widget = defaultCommandToggle;
-
-    const presetCommandRow = new Adw.ActionRow({ title: 'Preset Commands' });
-    commandGroup.add(presetCommandRow);
-    //Create the box
-    const presetCommandBox = new Gtk.ComboBoxText({
-        active_id: settings.get_string('command'),
+    // Command Settings
+    const commandRow = new Adw.ActionRow({ title: 'Launch command', subtitle: 'Pick or type a command' });
+    group.add(commandRow);
+    //Create the dropdown list
+    const commandBox = new Gtk.ComboBoxText({
         has_entry: true,
-        entry_text_column: 0,
-        has_frame: true,
-
-        hexpand: true,
-    });
-
-    presetCommandBox.append_text("nautilus");
-
-    settings.bind()
-
-
-
-    const customCommandRow = new Adw.ActionRow({ title: 'Custom Command' });
-    commandGroup.add(customCommandRow);
-    // Create the input field and bind its value to the key
-    const customCommandText = new Gtk.EntryBuffer( {text: settings.get_string('command')} );
-    const customCommandField = new Gtk.Entry( {buffer: customCommandText, hexpand: true } );
-    settings.bind( 'command', customCommandField.buffer, 'text', Gio.SettingsBindFlags.DEFAULT );
-    // Add the field to the row
-    customCommandRow.add_suffix(customCommandField);
-    customCommandRow.activatable_widget = customCommandField;
-
-
+        active_id: settings.get_string('command'),
+        valign: Gtk.Align.CENTER });
+    commandBox.append_text('dconf-editor');
+    commandBox.append_text('gnome-control-center user-accounts');
+    commandBox.append_text('gnome-extensions-app');
+    commandBox.append_text('gnome-help');
+    commandBox.append_text('gnome-software');
+    commandBox.append_text('gnome-system-monitor');
+    commandBox.append_text('gnome-terminal');
+    //Bind the box and the key
+    settings.bind( 'command', commandBox.get_child(), 'text', Gio.SettingsBindFlags.DEFAULT);
+    //Add the box to the row
+    commandRow.add_suffix(commandBox);
+    commandRow.activatable_widget = commandBox;
 }

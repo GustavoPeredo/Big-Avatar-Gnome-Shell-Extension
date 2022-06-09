@@ -5,5 +5,6 @@
   "shell-version": [ "40", "41", "42" ],
   "url": "https://github.com/GustavoPeredo/Big-Avatar-Gnome-Shell-Extension",
   "version": 11,
-  "settings-schema": "org.gnome.shell.extensions.big-avatar"
+  "settings-schema": "org.gnome.shell.extensions.big-avatar",
+  "session-modes":  [ "user" ]
 }

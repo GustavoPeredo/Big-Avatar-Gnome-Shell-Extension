@@ -58,6 +58,10 @@ Compatible with Gnome 40+.
 
 ## TODO List
 
+- [ ] :sparkles: Add Gtk3 compatibility
+
+- [ ] :lipstick: Add Extension icon on [extensions website](https://extensions.gnome.org/extension/3488/big-avatar/)
+
 - [ ] :mag: Perform SEO on README and [extensions website](https://extensions.gnome.org/extension/3488/big-avatar/)
 
 - [ ] :bug: Fix Big Avatar not being immediately updated after changing settings
