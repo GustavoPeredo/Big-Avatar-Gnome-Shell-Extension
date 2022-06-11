@@ -15,16 +15,20 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
+'use strict';
 
 //Import required libraries
-const { Adw, Gio, GObject, Gtk } = imports.gi;
+const { Gio, GObject, Gtk } = imports.gi;
 
 const ExtensionUtils = imports.misc.extensionUtils;//Access to settings from schema
+
+//Dectect Gnome Version Number
+const Config = imports.misc.config;
+const [major, minor] = Config.PACKAGE_VERSION.split('.').map(s => Number(s));
 
 function init() {}
 
 //SETTINGS WIDGETS
-
 const settings = ExtensionUtils.getSettings();//Create a global variable to connect user settings
 
 function makeHorizontalToggle() {
@@ -52,9 +56,36 @@ function makeCommandBox() {
     return _commandBox;
 }
 
-//GTK3 WINDOW
+//GTK4 WINDOW
+function fillPreferencesWindow(window) {
+    if (major >= 42) {
+        const Adw = imports.gi.Adw;
 
-//Create the grid
+        //Create a preferences page and group
+        const page = new Adw.PreferencesPage();
+        window.add(page);
+        const group = new Adw.PreferencesGroup();
+        page.add(group);
+
+        //Orientation Settings
+        const orientationRow = new Adw.ActionRow({ title: 'Horizontal mode' });
+        group.add(orientationRow);
+        //Add the switch to the row
+        let horizontalToggle = makeHorizontalToggle();
+        orientationRow.add_suffix(horizontalToggle);
+        orientationRow.activatable_widget = horizontalToggle;
+
+        // Command Settings
+        const commandRow = new Adw.ActionRow({ title: 'Launch command', subtitle: 'Pick or type a command' });
+        group.add(commandRow);
+        //Add the box to the row
+        let commandBox = makeCommandBox();
+        commandRow.add_suffix(commandBox);
+        commandRow.activatable_widget = commandBox;
+    }
+}
+
+//GTK3 WINDOW
 const BigAvatarSettings = new GObject.Class({
     Name: 'BigAvatarPrefs',
     Extends: Gtk.Grid,
@@ -87,36 +118,7 @@ const BigAvatarSettings = new GObject.Class({
         this.attach(commandBox, 1,1,1,1);
     }
 });
-
 function buildPrefsWidget() {
     let widget = new BigAvatarSettings();
     return widget;
-}
-
-//GTK4 WINDOW
-
-function fillPreferencesWindow(window) {
-    const settings = ExtensionUtils.getSettings();
-
-    //Create a preferences page and group
-    const page = new Adw.PreferencesPage();
-    window.add(page);
-    const group = new Adw.PreferencesGroup();
-    page.add(group);
-
-    //Orientation Settings
-    const orientationRow = new Adw.ActionRow({ title: 'Horizontal mode' });
-    group.add(orientationRow);
-    //Add the switch to the row
-    let horizontalToggle = makeHorizontalToggle();
-    orientationRow.add_suffix(horizontalToggle);
-    orientationRow.activatable_widget = horizontalToggle;
-
-    // Command Settings
-    const commandRow = new Adw.ActionRow({ title: 'Launch command', subtitle: 'Pick or type a command' });
-    group.add(commandRow);
-    //Add the box to the row
-    let commandBox = makeCommandBox();
-    commandRow.add_suffix(commandBox);
-    commandRow.activatable_widget = commandBox;
 }
