@@ -1,10 +1,10 @@
 {
   "uuid": "_big-avatar@gustavoperedo.org",
   "name": "Big Avatar",
-  "description": "Add your User icon and name to your menu panel. Also access your User Settings or run a custom command.",
+  "description": "Add your username and icon to your menu panel, and run apps or shell commands.",
   "shell-version": [ "40", "41", "42" ],
   "url": "https://github.com/GustavoPeredo/Big-Avatar-Gnome-Shell-Extension",
-  "version": 11,
+  "version": 12,
   "settings-schema": "org.gnome.shell.extensions.big-avatar",
   "session-modes":  [ "user" ]
 }
