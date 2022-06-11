@@ -58,7 +58,7 @@ function makeCommandBox() {
 
 //GTK4 WINDOW
 function fillPreferencesWindow(window) {
-    if (major >= 42) {
+    if (major >= 42) {//Check for Gnome 42 or above
         const Adw = imports.gi.Adw;
 
         //Create a preferences page and group
@@ -95,6 +95,7 @@ const BigAvatarSettings = new GObject.Class({
         this.column_spacing = 32;
         this.row_spacing = 16;
         this.margin_top = 16;
+        this.margin_bottom = 16;
         this.margin_start = 32;
         this.margin_end = 32;
 
@@ -118,6 +119,7 @@ const BigAvatarSettings = new GObject.Class({
         this.attach(commandBox, 1,1,1,1);
     }
 });
+
 function buildPrefsWidget() {
     let widget = new BigAvatarSettings();
     return widget;

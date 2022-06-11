@@ -17,6 +17,10 @@
 This extension adds your username and icon to your menu panel. It also allows you to launch an application or
 run a custom shell command.
 
+- horizontal/vertical layout
+
+- Launch an application/Run a shell command
+
 Compatible with Gnome 40+.
 
 <h2 align="center">
@@ -59,15 +63,9 @@ Compatible with Gnome 40+.
 
 ## TODO List
 
-- [ ] :sparkles: Add Gtk3 compatibility
-
-- [ ] :lipstick: Add Extension icon on [extensions website](https://extensions.gnome.org/extension/3488/big-avatar/)
-
-- [ ] :mag: Perform SEO on README and [extensions website](https://extensions.gnome.org/extension/3488/big-avatar/)
-
 - [ ] :sparkles: Implement **custom sizes for user icon and name**
 
-- [x] :bug: Fix Big Avatar orientation not being immediately updated after changing settings in Gtk4
+- [x] :sparkles: Add Gtk3 compatibility
 
 - [x] :sparkles: Implement **custom command**
 
