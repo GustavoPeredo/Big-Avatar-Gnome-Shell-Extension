@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="BigAvatar">
     <schema id="org.gnome.shell.extensions.big-avatar" path="/org/gnome/shell/extensions/big-avatar/">
+
         <key name="horizontalmode" type="b">
             <default>false</default>
-            <summary>Turn on to have the user icon and username/name on the same line</summary>
-            <description>Horizontal Orientation</description>
+            <summary>Horizontal Orientation</summary>
+            <description>Turn on to have the user icon and username/name on the same line</description>
         </key>
-        <key name="defaultcommandmode" type="b">
-            <default>true</default>
-            <summary>Turn on to lock the custom command and only have the icon open User Settings</summary>
-            <description>Default Command Enabled</description>
-        </key>
+
         <key name="command" type="s">
-            <default>"gnome-control-center user-accounts"</default>
-            <summary>Shell command defined by the user and used instead of the default command if enabled</summary>
-            <description>Custom Command</description>
+            <default>"gnome-extensions-app"</default>
+            <summary>Shell Command</summary>
+            <description>Shell command defined by the user</description>
         </key>
+
     </schema>
 </schemalist>

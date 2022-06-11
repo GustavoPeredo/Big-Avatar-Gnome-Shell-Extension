@@ -14,7 +14,12 @@
     </a>
 </p>
 
-This extension adds your user icon and name to your menu panel.
+This extension adds your username and icon to your menu panel. It also allows you to launch an application or
+run a custom shell command.
+
+- horizontal/vertical layout
+
+- Launch an application/Run a shell command
 
 Compatible with Gnome 40+.
 
@@ -24,7 +29,9 @@ Compatible with Gnome 40+.
     </a>
 </h2>
 
-![screenshot](screenshot.png)
+![screenshot](pic_screenshot.png)
+
+![settings](pic_settings.png)
 
 ## Installation from Source
 
@@ -58,25 +65,14 @@ Compatible with Gnome 40+.
 
 ## TODO List
 
-- [ ] :bug: Fix Big Avatar not being immediately updated after changing settings
-
-- [ ] :sparkles: Implement **custom command**
-
 - [ ] :sparkles: Implement **custom sizes for user icon and name**
 
-- [x] :lipstick: Add boxes background to settings menu
+- [x] :sparkles: Add Gtk3 compatibility
 
-- [x] :memo: Add an installation section to README.md
-
-- [x] :rocket: **Remove Makefile**
-
-- [x] :rocket: **remove convenience.js and use getSettings() from ExtensionUtils
-instead of creating your own custom functions:
-<https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/misc/extensionUtils.js>**
-
-- [x] :package: ~~Update `Makefile` to include correct build and reload commands~~
+- [x] :sparkles: Implement **custom command**
 
 ## Notes
 
 - This project is a fork of **[db0x's extension](https://github.com/db0x/bigavatar-db0x.de).**
-- Huge thanks for @djinnalexio for his amazing contribution! He single handedly revived this extension!
+
+- Huge thanks to **@djinnalexio** for his amazing contribution! He single handedly revived this extension!
