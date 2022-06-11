@@ -25,13 +25,12 @@ const UserWidget = imports.ui.userWidget.UserWidget;//Something to do with user 
 
 const Util = imports.misc.util;//Access system to run shell comand
 
-const { AccountsService, Clutter, Gio, GLib, St } = imports.gi;//Tools for layout and user data
+const { AccountsService, Clutter, GLib, St } = imports.gi;//Tools for layout and user data
 
 const ExtensionUtils = imports.misc.extensionUtils;//Access to settings from schema
+let settings;//Create a global variable to connect user settings
 
 function init() {}//Launch the extension
-
-let settings;//Create a global variable to connect user settings
 
 //Run when extension is enabled
 function enable() {
