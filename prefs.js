@@ -15,7 +15,6 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
-"use strict";
 
 //Import required libraries
 const { Adw, Gdk, GdkPixbuf, Gio, GLib, GObject, Gtk } = imports.gi;

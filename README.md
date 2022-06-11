@@ -59,8 +59,6 @@ Compatible with Gnome 40+.
 
 ## TODO List
 
-- [ ] :bug: Fix Big Avatar orientation not being immediately updated after changing settings in Gtk4
-
 - [ ] :sparkles: Add Gtk3 compatibility
 
 - [ ] :lipstick: Add Extension icon on [extensions website](https://extensions.gnome.org/extension/3488/big-avatar/)
@@ -68,6 +66,8 @@ Compatible with Gnome 40+.
 - [ ] :mag: Perform SEO on README and [extensions website](https://extensions.gnome.org/extension/3488/big-avatar/)
 
 - [ ] :sparkles: Implement **custom sizes for user icon and name**
+
+- [x] :bug: Fix Big Avatar orientation not being immediately updated after changing settings in Gtk4
 
 - [x] :sparkles: Implement **custom command**
 
