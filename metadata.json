@@ -1,5 +1,5 @@
 {
-  "uuid": "_big-avatar@gustavoperedo.org",
+  "uuid": "big-avatar@gustavoperedo.org",
   "name": "Big Avatar",
   "description": "Add your username and icon to your menu panel, and run apps or shell commands.",
   "shell-version": [ "40", "41", "42" ],
