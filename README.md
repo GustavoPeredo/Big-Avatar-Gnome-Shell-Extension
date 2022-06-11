@@ -29,7 +29,9 @@ Compatible with Gnome 40+.
     </a>
 </h2>
 
-![screenshot](screenshot.png)
+![screenshot](pic_screenshot.png)
+
+![settings](pic_settings.png)
 
 ## Installation from Source
 
