@@ -27,24 +27,30 @@ function init() {}
 
 const settings = ExtensionUtils.getSettings();//Create a global variable to connect user settings
 
-let horizontalModeToggle = new Gtk.Switch({
-    active: settings.get_boolean('horizontalmode'),
-    halign: Gtk.Align.END,
-    valign:Gtk.Align.CENTER });
-settings.bind( 'horizontalmode', horizontalModeToggle, 'state', Gio.SettingsBindFlags.DEFAULT );
+function makeHorizontalToggle() {
+    let _horizontalToggle = new Gtk.Switch({
+        active: settings.get_boolean('horizontalmode'),
+        halign: Gtk.Align.END,
+        valign:Gtk.Align.CENTER });
+    settings.bind( 'horizontalmode', _horizontalToggle, 'state', Gio.SettingsBindFlags.DEFAULT );
+    return _horizontalToggle;
+}
 
-let commandBox = new Gtk.ComboBoxText({
-    has_entry: true,
-    active_id: settings.get_string('command'),
-    valign:Gtk.Align.CENTER });
-commandBox.append_text('dconf-editor');
-commandBox.append_text('gnome-control-center user-accounts');
-commandBox.append_text('gnome-extensions-app');
-commandBox.append_text('gnome-help');
-commandBox.append_text('gnome-software');
-commandBox.append_text('gnome-system-monitor');
-commandBox.append_text('gnome-terminal');
-settings.bind( 'command', commandBox.get_child(), 'text', Gio.SettingsBindFlags.DEFAULT);
+function makeCommandBox() {
+    let _commandBox = new Gtk.ComboBoxText({
+        has_entry: true,
+        active_id: settings.get_string('command'),
+        valign:Gtk.Align.CENTER });
+    _commandBox.append_text('dconf-editor');
+    _commandBox.append_text('gnome-control-center user-accounts');
+    _commandBox.append_text('gnome-extensions-app');
+    _commandBox.append_text('gnome-help');
+    _commandBox.append_text('gnome-software');
+    _commandBox.append_text('gnome-system-monitor');
+    _commandBox.append_text('gnome-terminal');
+    settings.bind( 'command', _commandBox.get_child(), 'text', Gio.SettingsBindFlags.DEFAULT);
+    return _commandBox;
+}
 
 //GTK3 WINDOW
 
@@ -55,41 +61,27 @@ const BigAvatarSettings = new GObject.Class({
     _init: function(params) {
         //Give grid's characteristics
         this.parent(params);
-
         this.column_spacing = 32;
         this.row_spacing = 16;
-
-        //this.margin_top = 50;
-        //this.margin_bottom = 50;
-        //this.margin_start = 50;
-        //this.margin_end = 50;
-
-        //this.hexpand = true;
-        //this.vexpand = true;
-        //this.halign = Gtk.Align.CENTER;
-        this.valign = Gtk.Align.CENTER;
+        this.margin_top = 16;
+        this.margin_start = 32;
+        this.margin_end = 32;
 
         //Horizontal Mode
-        let horizontalModeLabel = new Gtk.Label({
+        let horizontalLabel = new Gtk.Label({
             label: 'Horizontal Orientation',
-            //hexpand: true,
-            //vexpand: true,
-            halign: Gtk.Align.START,
-            //valign:Gtk.Align.CENTER,
-        });
+            halign: Gtk.Align.START });
+        let horizontalToggle = makeHorizontalToggle();
 
-        this.attach(horizontalModeLabel, 0,0,1,1);
-        this.attach(horizontalModeToggle, 1,0,1,1);
+        this.attach(horizontalLabel, 0,0,1,1);
+        this.attach(horizontalToggle, 1,0,1,1);
 
         //Command
         let commandLabel = new Gtk.Label({
             label: 'Launch command',
             tooltip_text: 'Pick or type a command',
-            //hexpand: true,
-            //vexpand: true,
-            halign: Gtk.Align.START,
-            //valign:Gtk.Align.CENTER,
-        });
+            halign: Gtk.Align.START });
+        let commandBox = makeCommandBox();
 
         this.attach(commandLabel, 0,1,1,1);
         this.attach(commandBox, 1,1,1,1);
@@ -116,13 +108,15 @@ function fillPreferencesWindow(window) {
     const orientationRow = new Adw.ActionRow({ title: 'Horizontal mode' });
     group.add(orientationRow);
     //Add the switch to the row
-    orientationRow.add_suffix(horizontalModeToggle);
-    orientationRow.activatable_widget = horizontalModeToggle;
+    let horizontalToggle = makeHorizontalToggle();
+    orientationRow.add_suffix(horizontalToggle);
+    orientationRow.activatable_widget = horizontalToggle;
 
     // Command Settings
     const commandRow = new Adw.ActionRow({ title: 'Launch command', subtitle: 'Pick or type a command' });
     group.add(commandRow);
     //Add the box to the row
+    let commandBox = makeCommandBox();
     commandRow.add_suffix(commandBox);
     commandRow.activatable_widget = commandBox;
 }
