@@ -15,6 +15,7 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
+'use strict';
 
 //Import required libraries
 const Main = imports.ui.main;//Access to the panel menu
@@ -43,11 +44,6 @@ function enable() {
 
 //Run when extension is disabled
 function disable() {
-    //Disconnect systemMenu
-    if (this._menuOpenStateChangedId) {
-        systemMenu.menu.disconnect(this._menuOpenStateChangedId);
-        this._menuOpenStateChangedId = 0;
-    }
     //Remove the bigAvatarItem
     bigAvatarItem.destroy();
     bigAvatarItem = null;
@@ -93,11 +89,6 @@ function runCommand() { Util.spawn(['/bin/bash', '-c', settings.get_string('comm
 
 //Remove the bigAvatarItem and draw the updated one
 function UpdateExtension() {
-    //Disconnect systemMenu
-    if (this._menuOpenStateChangedId) {
-        systemMenu.menu.disconnect(this._menuOpenStateChangedId);
-        this._menuOpenStateChangedId = 0;
-    }
     //Remove the bigAvatarItem
     bigAvatarItem.destroy();
     bigAvatarItem = null;
