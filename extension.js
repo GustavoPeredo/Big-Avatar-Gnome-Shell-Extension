@@ -68,7 +68,6 @@ function drawExtension() {
         }));
     //Add bigAvatarItem to the menu
     Main.panel.statusArea.aggregateMenu.menu.addMenuItem(bigAvatarItem, 0);
-    this.systemMenu = Main.panel.statusArea['aggregateMenu']._system;
     //Get username
     var userManager = AccountsService.UserManager.get_default();
     var user = userManager.get_user(GLib.get_user_name());
