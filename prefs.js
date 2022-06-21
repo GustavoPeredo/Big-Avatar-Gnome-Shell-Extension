@@ -22,16 +22,9 @@ const { Gio, GObject, Gtk } = imports.gi;
 
 const ExtensionUtils = imports.misc.extensionUtils;//Access to settings from schema
 
-//Dectect Gnome Version Number
-const Config = imports.misc.config;
-const [major, minor] = Config.PACKAGE_VERSION.split('.').map(s => Number(s));
-
 function init() {}
 
-//SETTINGS WIDGETS
-const settings = ExtensionUtils.getSettings();//Create a global variable to connect user settings
-
-function makeHorizontalToggle() {
+function makeHorizontalToggle(settings) {
     let _horizontalToggle = new Gtk.Switch({
         active: settings.get_boolean('horizontalmode'),
         halign: Gtk.Align.END,
@@ -40,7 +33,7 @@ function makeHorizontalToggle() {
     return _horizontalToggle;
 }
 
-function makeCommandBox() {
+function makeCommandBox(settings) {
     let _commandBox = new Gtk.ComboBoxText({
         has_entry: true,
         active_id: settings.get_string('command'),
@@ -56,36 +49,35 @@ function makeCommandBox() {
     return _commandBox;
 }
 
-//GTK4 WINDOW
+//GTK4 with LibAwaita
 function fillPreferencesWindow(window) {
-    if (major >= 42) {//Check for Gnome 42 or above
-        const Adw = imports.gi.Adw;
+    const settings = ExtensionUtils.getSettings();
+    const Adw = imports.gi.Adw;
 
-        //Create a preferences page and group
-        const page = new Adw.PreferencesPage();
-        window.add(page);
-        const group = new Adw.PreferencesGroup();
-        page.add(group);
+    //Create a preferences page and group
+    const page = new Adw.PreferencesPage();
+    window.add(page);
+    const group = new Adw.PreferencesGroup();
+    page.add(group);
 
-        //Orientation Settings
-        const orientationRow = new Adw.ActionRow({ title: 'Horizontal mode' });
-        group.add(orientationRow);
-        //Add the switch to the row
-        let horizontalToggle = makeHorizontalToggle();
-        orientationRow.add_suffix(horizontalToggle);
-        orientationRow.activatable_widget = horizontalToggle;
+    //Orientation Settings
+    const orientationRow = new Adw.ActionRow({ title: 'Horizontal mode' });
+    group.add(orientationRow);
+    //Add the switch to the row
+    let horizontalToggle = makeHorizontalToggle(settings);
+    orientationRow.add_suffix(horizontalToggle);
+    orientationRow.activatable_widget = horizontalToggle;
 
-        // Command Settings
-        const commandRow = new Adw.ActionRow({ title: 'Launch command', subtitle: 'Pick or type a command' });
-        group.add(commandRow);
-        //Add the box to the row
-        let commandBox = makeCommandBox();
-        commandRow.add_suffix(commandBox);
-        commandRow.activatable_widget = commandBox;
-    }
+    // Command Settings
+    const commandRow = new Adw.ActionRow({ title: 'Launch command', subtitle: 'Pick or type a command' });
+    group.add(commandRow);
+    //Add the box to the row
+    let commandBox = makeCommandBox(settings);
+    commandRow.add_suffix(commandBox);
+    commandRow.activatable_widget = commandBox;
 }
 
-//GTK3 WINDOW
+//GTK3/4
 const BigAvatarSettings = new GObject.Class({
     Name: 'BigAvatarPrefs',
     Extends: Gtk.Grid,
@@ -99,11 +91,13 @@ const BigAvatarSettings = new GObject.Class({
         this.margin_start = 32;
         this.margin_end = 32;
 
+        const settings = ExtensionUtils.getSettings();
+
         //Horizontal Mode
         let horizontalLabel = new Gtk.Label({
             label: 'Horizontal Orientation',
             halign: Gtk.Align.START });
-        let horizontalToggle = makeHorizontalToggle();
+        let horizontalToggle = makeHorizontalToggle(settings);
 
         this.attach(horizontalLabel, 0,0,1,1);
         this.attach(horizontalToggle, 1,0,1,1);
@@ -113,7 +107,7 @@ const BigAvatarSettings = new GObject.Class({
             label: 'Launch command',
             tooltip_text: 'Pick or type a command',
             halign: Gtk.Align.START });
-        let commandBox = makeCommandBox();
+        let commandBox = makeCommandBox(settings);
 
         this.attach(commandLabel, 0,1,1,1);
         this.attach(commandBox, 1,1,1,1);
