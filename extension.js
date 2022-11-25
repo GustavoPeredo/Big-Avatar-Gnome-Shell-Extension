@@ -24,7 +24,7 @@ const PopupMenu = imports.ui.popupMenu;//Object that the extension is in the pan
 
 const UserWidget = imports.ui.userWidget.UserWidget;//Something to do with user name and icon
 
-const Util = imports.misc.util;//Access system to run shell comand
+const Util = imports.misc.util;//Access system to run shell command
 
 const { AccountsService, Clutter, GLib, St } = imports.gi;//Tools for layout and user data
 
@@ -67,7 +67,7 @@ function drawExtension() {
             vertical: true,
         }));
     //Add bigAvatarItem to the menu
-    Main.panel.statusArea.aggregateMenu.menu.addMenuItem(bigAvatarItem, 0);
+    Main.panel.statusArea.quickSettings.menu.addMenuItem(bigAvatarItem, 0);
     //Get username
     var userManager = AccountsService.UserManager.get_default();
     var user = userManager.get_user(GLib.get_user_name());

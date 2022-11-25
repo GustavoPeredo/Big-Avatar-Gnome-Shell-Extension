@@ -4,11 +4,9 @@
   "name": "Big Avatar",
   "settings-schema": "org.gnome.shell.extensions.big-avatar",
   "shell-version": [
-    "40",
-    "41",
-    "42"
+    "43"
   ],
   "url": "https://github.com/GustavoPeredo/Big-Avatar-Gnome-Shell-Extension",
   "uuid": "big-avatar@gustavoperedo.org",
-  "version": 16
+  "version": 17
 }
