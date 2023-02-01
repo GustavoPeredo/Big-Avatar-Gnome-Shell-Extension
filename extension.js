@@ -57,24 +57,34 @@ var bigAvatarItem = null;
 
 //Create the item and add it to the panel menu
 function drawExtension() {
-    bigAvatarItem = new PopupMenu.PopupMenuItem('');
+    //Create a box where we are going to store picture and avatar
+    bigAvatarItem = new St.BoxLayout({
+        'x_expand': true,
+        'y_expand': true,
+        'vertical': true,
+        'reactive': true,
+    });
+
+    // Run a command when the extension is clicked
     bigAvatarItem.connect('button-press-event', runCommand);//Run a command when the extension is clicked
-    //Add a box where we are going to store picture and avatar
-    bigAvatarItem.add_child(
-        new St.BoxLayout({
-            x_expand: true,
-            y_expand: true,
-            vertical: true,
-        }));
-    //Add bigAvatarItem to the menu
-    Main.panel.statusArea.quickSettings.menu.addMenuItem(bigAvatarItem, 0);
-    //Get username
+
+    // Add bigAvatarItem to quickSettingsMenuGrid
+    this._quickSettingsPanel = Main.panel.statusArea.quickSettings;
+    const quickSettingsMenuGrid = this._quickSettingsPanel.menu._grid;
+    quickSettingsMenuGrid.insert_child_at_index(bigAvatarItem, 2);
+    // Span bigAvatarItem on 2 column
+    quickSettingsMenuGrid.layout_manager.child_set_property(
+        quickSettingsMenuGrid, bigAvatarItem, 'column-span', 2);
+
+    // Get username
     var userManager = AccountsService.UserManager.get_default();
     var user = userManager.get_user(GLib.get_user_name());
-    //Draw the bigAvatarItem
+
+    // Draw the bigAvatarItem
     var avatar = new UserWidget(user, get_orientation());
     avatar._updateUser();
-    bigAvatarItem.actor.get_last_child().add_child(avatar);
+
+    bigAvatarItem.add_child(avatar);
 }
 
 //Get the user-defined orientation
