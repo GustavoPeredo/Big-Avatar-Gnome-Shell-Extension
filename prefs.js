@@ -59,6 +59,9 @@ function fillPreferencesWindow(window) {
     window.add(page);
     const group = new Adw.PreferencesGroup();
     page.add(group);
+    
+    //Default Preferences Window size
+    window.set_default_size(640, 280);
 
     //Orientation Settings
     const orientationRow = new Adw.ActionRow({ title: 'Horizontal mode' });
@@ -75,6 +78,17 @@ function fillPreferencesWindow(window) {
     let commandBox = makeCommandBox(settings);
     commandRow.add_suffix(commandBox);
     commandRow.activatable_widget = commandBox;
+    
+    // Position Settings
+    const positionsList = new Gtk.StringList()
+    positionsList.append('Top')
+    positionsList.append('Bottom')
+
+    const positionRow = new Adw.ComboRow({ title: 'Position in menu ', model: positionsList,
+      selected: settings.get_int('position')})
+    group.add(positionRow);
+
+    settings.bind( 'position', positionRow, 'selected', Gio.SettingsBindFlags.DEFAULT);
 }
 
 //GTK3/4
