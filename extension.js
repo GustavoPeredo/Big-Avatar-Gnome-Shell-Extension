@@ -45,7 +45,7 @@ function enable() {
 
 //Run when extension is disabled
 function disable() {
-    //Remove the bigAvatarItem
+    //Remove the bigAvatarMenuItem
     if (bigAvatarMenuItem !== null) {
         bigAvatarMenuItem.destroy();
         bigAvatarMenuItem = null;
