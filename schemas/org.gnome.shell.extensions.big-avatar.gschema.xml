@@ -14,5 +14,11 @@
             <description>Shell command defined by the user</description>
         </key>
 
+        <key name="position" type="i">
+            <default>0</default>
+            <summary>Position in menu</summary>
+            <description>Position in menu</description>
+        </key>
+
     </schema>
 </schemalist>

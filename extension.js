@@ -39,14 +39,22 @@ function enable() {
     //Connect the changing of any values to the UpdateExtension function
     settings.connect('changed::horizontalmode', UpdateExtension);
     settings.connect('changed::command', UpdateExtension);
+    settings.connect('changed::position', UpdateExtension);
     drawExtension();
 }
 
 //Run when extension is disabled
 function disable() {
     //Remove the bigAvatarItem
-    bigAvatarItem.destroy();
-    bigAvatarItem = null;
+    if (bigAvatarMenuItem !== null) {
+        bigAvatarMenuItem.destroy();
+        bigAvatarMenuItem = null;
+    }
+    //Remove the bigAvatarItem
+    if (bigAvatarItem !== null) {
+        bigAvatarItem.destroy();
+        bigAvatarItem = null;
+    }
     //Clear settings
     settings.run_dispose();
     settings = null;
@@ -54,6 +62,7 @@ function disable() {
 
 //Create the variable to hold our extension
 var bigAvatarItem = null;
+var bigAvatarMenuItem = null;
 
 //Create the item and add it to the panel menu
 function drawExtension() {
@@ -68,14 +77,23 @@ function drawExtension() {
     // Run a command when the extension is clicked
     bigAvatarItem.connect('button-press-event', runCommand);//Run a command when the extension is clicked
 
-    // Add bigAvatarItem to quickSettingsMenuGrid
-    this._quickSettingsPanel = Main.panel.statusArea.quickSettings;
-    const quickSettingsMenuGrid = this._quickSettingsPanel.menu._grid;
-    quickSettingsMenuGrid.insert_child_at_index(bigAvatarItem, 2);
-    // Span bigAvatarItem on 2 column
-    quickSettingsMenuGrid.layout_manager.child_set_property(
-        quickSettingsMenuGrid, bigAvatarItem, 'column-span', 2);
-
+    const quickSettingsPanel = Main.panel.statusArea.quickSettings;
+    
+    if (settings.get_int('position') === 0) { // Top position
+        // Add bigAvatarItem to quickSettingsMenuGrid
+        const quickSettingsMenuGrid = quickSettingsPanel.menu._grid;
+        quickSettingsMenuGrid.insert_child_at_index(bigAvatarItem, 2);
+        quickSettingsMenuGrid.layout_manager.child_set_property(
+            quickSettingsMenuGrid, bigAvatarItem, 'column-span', 2);
+    } else {
+        // Add bigAvatarItem to quickSettingsMenu
+        const quickSettingsMenu = quickSettingsPanel.menu;
+        bigAvatarMenuItem = new PopupMenu.PopupMenuItem('');
+        bigAvatarMenuItem.set_reactive(false);
+        bigAvatarMenuItem.add_child(bigAvatarItem);
+        quickSettingsMenu.addMenuItem(bigAvatarMenuItem, 0);
+    }
+    
     // Get username
     var userManager = AccountsService.UserManager.get_default();
     var user = userManager.get_user(GLib.get_user_name());
@@ -99,7 +117,14 @@ function runCommand() { Util.spawn(['/bin/bash', '-c', settings.get_string('comm
 //Remove the bigAvatarItem and draw the updated one
 function UpdateExtension() {
     //Remove the bigAvatarItem
-    bigAvatarItem.destroy();
-    bigAvatarItem = null;
+    if (bigAvatarMenuItem !== null) {
+        bigAvatarMenuItem.destroy();
+        bigAvatarMenuItem = null;
+    }
+    //Remove the bigAvatarItem
+    if (bigAvatarItem !== null) {
+        bigAvatarItem.destroy();
+        bigAvatarItem = null;
+    }
     drawExtension();
 }
